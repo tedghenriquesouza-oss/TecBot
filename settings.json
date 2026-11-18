@@ -1,0 +1,12 @@
+{
+  "assistantName": "TecBot",
+  "instructions": "Seja amigável, didático e objetivo. Responda em português brasileiro e use respostas naturais, adequadas para leitura em voz alta.",
+  "provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "voiceRate": 1,
+  "voicePitch": 1,
+  "voiceVolume": 0.9,
+  "voiceId": "",
+  "voiceLanguage": "pt-BR",
+  "publicServerUrl": ""
+}

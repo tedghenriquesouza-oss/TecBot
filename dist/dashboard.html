@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#212121" />
+  <title>TecBot | Dashboard</title>
+  <script type="module" crossorigin src="/assets/dashboard-BzuXvYs1.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/shared-DudoFBpg.js">
+  <link rel="stylesheet" crossorigin href="/assets/shared-DUHlNotU.css">
+</head>
+<body>
+  <div class="app-shell app-shell-page">
+    <aside class="app-sidebar">
+      <a class="brand" href="/" aria-label="TecBot, início">
+        <span class="brand-mark" aria-hidden="true">T</span>
+        <span class="brand-name">TecBot</span>
+      </a>
+      <a class="sidebar-new-chat" href="/"> <span aria-hidden="true">+</span> Voltar ao chat</a>
+      <div class="sidebar-info">
+        <span class="sidebar-section-title">TecBot</span>
+        <p>Assistente pessoal e painel de dispositivos.</p>
+      </div>
+      <div class="sidebar-footer"><span>Use apenas em rede confiável</span></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <span class="brand-name">TecBot</span>
+        </div>
+        <nav class="navigation" aria-label="Navegação principal">
+          <a class="nav-link" href="/">Chat</a>
+          <a class="nav-link active" href="/dashboard.html" aria-current="page">Dashboard</a>
+          <a class="nav-link" href="/esp-logs.html">Registros do ESP32</a>
+          <a class="nav-link" href="/settings.html">Configurações</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema claro">
+          <span class="theme-icon" aria-hidden="true">◐</span>
+          <span class="theme-label">Tema claro</span>
+        </button>
+      </header>
+      <section class="page-content" aria-labelledby="dashboard-title">
+        <div class="section-heading">
+          <p class="eyebrow">VISÃO GERAL</p>
+          <h1 id="dashboard-title">Dashboard</h1>
+          <p>Estado do backend, testes do HC-SR04 e controles do ESP32. O painel não exige token administrativo; mantenha o servidor em uma rede confiável.</p>
+        </div>
+        <div class="dashboard-toolbar">
+          <div>
+            <button class="button btn button-outline btn-outline-light" id="refresh-dashboard" type="button">Atualizar agora</button>
+            <div class="dashboard-updated" id="dashboard-updated">Ainda não atualizado</div>
+          </div>
+        </div>
+        <div class="cards row g-3">
+          <article class="card col-12 col-lg-6">
+            <h2>Servidor</h2>
+            <p class="card-value connection-indicator" id="server-status" data-status="unknown"><span class="dot"></span><span>Aguardando consulta</span></p>
+            <p class="card-detail" id="server-details">—</p>
+            <p class="card-detail" id="server-last-contact">Último contato: —</p>
+          </article>
+          <article class="card col-12 col-lg-6">
+            <h2>Provedor de IA</h2>
+            <p class="card-value" id="ai-provider">—</p>
+            <p class="card-detail" id="ai-model">Modelo: —</p>
+            <p class="card-detail" id="ai-last-test">Nenhum teste real realizado</p>
+          </article>
+          <article class="card col-12">
+            <h2>ESP32</h2>
+            <div id="device-content" class="empty-state">Aguardando primeiro contato autenticado do ESP32.</div>
+            <div class="device-controls">
+              <h3>Controles do dispositivo</h3>
+              <div class="settings-grid row g-3">
+                <div class="field col-12 col-md-6">
+                  <label class="form-label" for="control-device">Dispositivo</label>
+                  <select class="form-select" id="control-device" disabled><option value="">Aguardando ESP32</option></select>
+                </div>
+                <div class="field col-12 col-md-6">
+                  <label class="form-label" for="oled-welcome">Texto de início da OLED</label>
+                  <input class="form-control" id="oled-welcome" type="text" maxlength="32" value="TecBot pronto!" disabled />
+                </div>
+                <div class="field field-full col-12">
+                  <label class="form-label" for="oled-contrast">Contraste da OLED</label>
+                  <div class="range-control">
+                    <input class="form-range" id="oled-contrast" type="range" min="0" max="255" step="1" value="180" disabled />
+                    <output id="oled-contrast-value" for="oled-contrast">180</output>
+                  </div>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="button btn button-primary btn-primary" id="save-oled" type="button" disabled>Salvar visual da tela</button>
+                <button class="button btn button-outline btn-outline-light" id="toggle-oled" type="button" disabled>Ligar tela OLED</button>
+                <button class="button btn button-outline btn-outline-light" id="toggle-clock-mode" type="button" disabled>Ativar modo horário</button>
+                <button class="button btn button-secondary btn-secondary" id="restart-esp32" type="button" disabled>Reiniciar ESP32</button>
+              </div>
+              <h3>Áudio e microfone</h3>
+              <p class="card-detail">Controle remotamente a captação de voz e a reprodução pelo alto-falante.</p>
+              <div class="form-actions">
+                <button class="button btn button-outline btn-outline-light" id="toggle-microphone" type="button" disabled>Carregando microfone...</button>
+                <button class="button btn button-outline btn-outline-light" id="toggle-speaker" type="button" disabled>Carregando som...</button>
+              </div>
+              <h3>Configuração do ESP32</h3>
+              <div class="settings-grid row g-3">
+                <div class="field col-12 col-md-6">
+                  <label class="form-label" for="esp-ssid">Nome da rede Wi-Fi (SSID)</label>
+                  <input class="form-control" id="esp-ssid" type="text" maxlength="32" placeholder="Deixe vazio para manter" disabled />
+                </div>
+                <div class="field col-12 col-md-6">
+                  <label class="form-label" for="esp-senha">Senha do Wi-Fi</label>
+                  <input class="form-control" id="esp-senha" type="password" maxlength="64" placeholder="Deixe vazio para manter" autocomplete="off" disabled />
+                </div>
+                <div class="field field-full col-12">
+                  <label class="form-label" for="esp-url">URL do servidor TecBot</label>
+                  <input class="form-control" id="esp-url" type="text" maxlength="200" placeholder="http://192.168.x.x:3000" disabled />
+                </div>
+                <div class="field field-full col-12">
+                  <label class="form-label" for="esp-token">Token do dispositivo</label>
+                  <input class="form-control" id="esp-token" type="password" maxlength="256" placeholder="Deixe vazio para manter" autocomplete="off" disabled />
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="button btn button-primary btn-primary" id="save-esp-config" type="button" disabled>Salvar configuração do ESP32</button>
+                <button class="button btn button-outline btn-outline-light" id="load-esp-config" type="button" disabled>Recarregar do ESP32</button>
+              </div>
+              <p class="card-detail" id="device-control-status" role="status" aria-live="polite">Aguardando ESP32.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

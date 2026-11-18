@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#212121" />
+  <title>TecBot | Configurações</title>
+  <script type="module" crossorigin src="/assets/settings-AO_JaIuQ.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/shared-DudoFBpg.js">
+  <link rel="stylesheet" crossorigin href="/assets/shared-DUHlNotU.css">
+</head>
+<body>
+  <div class="app-shell app-shell-page">
+    <aside class="app-sidebar">
+      <a class="brand" href="/" aria-label="TecBot, início">
+        <span class="brand-mark" aria-hidden="true">T</span>
+        <span class="brand-name">TecBot</span>
+      </a>
+      <a class="sidebar-new-chat" href="/"> <span aria-hidden="true">+</span> Voltar ao chat</a>
+      <div class="sidebar-info">
+        <span class="sidebar-section-title">Preferências</span>
+        <p>Personalize seu assistente.</p>
+      </div>
+      <div class="sidebar-footer"><span>Configurações compartilhadas neste servidor</span></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <span class="brand-name">TecBot</span>
+        </div>
+        <nav class="navigation" aria-label="Navegação principal">
+          <a class="nav-link" href="/">Chat</a>
+          <a class="nav-link" href="/dashboard.html">Dashboard</a>
+          <a class="nav-link" href="/esp-logs.html">Registros do ESP32</a>
+          <a class="nav-link active" href="/settings.html" aria-current="page">Configurações</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema claro">
+          <span class="theme-icon" aria-hidden="true">◐</span>
+          <span class="theme-label">Tema claro</span>
+        </button>
+      </header>
+      <section class="page-content" aria-labelledby="settings-title">
+        <div class="section-heading">
+          <p class="eyebrow">PERSONALIZE</p>
+          <h1 id="settings-title">Configurações</h1>
+          <p>Ajuste as preferências do assistente. As alterações são aplicadas a todas as pessoas que usam este servidor.</p>
+        </div>
+        <div class="notice-card">
+          Tokens ficam em um arquivo local do backend e nunca são devolvidos pela API. Não exponha este servidor publicamente sem autenticação. Para o microfone do ESP32, mantenha também a chave Gemini configurada.
+        </div>
+        <section class="settings-section" aria-labelledby="provider-credentials-title">
+          <h2 id="provider-credentials-title">Provedores e tokens de API</h2>
+          <p>Informe ou substitua os tokens. Deixar o campo vazio mantém o token salvo. A chave Gemini também é usada para transcrever o áudio do ESP32.</p>
+          <div class="settings-grid row g-3">
+            <div class="field col-12 col-md-6">
+              <label class="form-label" for="gemini-api-key">Token do Google Gemini</label>
+              <input class="form-control" id="gemini-api-key" type="password" maxlength="4096" autocomplete="new-password" placeholder="Token não exibido" />
+              <small id="gemini-key-status">Verificando configuração...</small>
+            </div>
+            <div class="field col-12 col-md-6">
+              <label class="form-label" for="nvidia-api-key">Token da NVIDIA</label>
+              <input class="form-control" id="nvidia-api-key" type="password" maxlength="4096" autocomplete="new-password" placeholder="Token não exibido" />
+              <small id="nvidia-key-status">Verificando configuração...</small>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="button btn button-primary btn-primary" id="save-provider-config" type="button">Salvar tokens e provedores</button>
+          </div>
+          <div id="custom-provider-list" class="settings-grid row g-3"></div>
+          <div class="form-actions">
+            <button class="button btn button-outline btn-outline-light" id="add-custom-provider" type="button">Adicionar provedor compatível com OpenAI</button>
+          </div>
+          <p id="provider-config-feedback" role="status" aria-live="polite"></p>
+        </section>
+        <form class="settings-form" id="settings-form">
+          <section class="settings-section">
+            <h2>Assistente</h2>
+            <div class="settings-grid row g-3">
+              <div class="field col-12 col-md-6">
+                <label class="form-label" for="assistant-name-input">Nome do assistente</label>
+                <input class="form-control" id="assistant-name-input" name="assistantName" type="text" maxlength="50" required />
+              </div>
+              <div class="field col-12 col-md-6">
+                <label class="form-label" for="provider">Provedor de IA</label>
+                <select class="form-select" id="provider" name="provider">
+                  <option value="gemini">Google Gemini</option>
+                  <option value="nvidia">NVIDIA</option>
+                </select>
+              </div>
+              <div class="field field-full col-12">
+                <label class="form-label" for="instructions">Personalidade e instruções</label>
+                <textarea class="form-control" id="instructions" name="instructions" maxlength="4000"></textarea>
+                <small>As regras permanentes do servidor não podem ser substituídas por este texto.</small>
+              </div>
+              <div class="field col-12 col-md-6">
+                <label class="form-label" for="model">Modelo</label>
+                <input class="form-control" id="model" name="model" type="text" list="model-options" maxlength="200" required />
+                <datalist id="model-options"></datalist>
+                <small id="model-configured-note">Informe um ID de modelo ou escolha uma sugestão do catálogo.</small>
+              </div>
+              <div class="field col-12 col-md-6">
+                <div class="catalog-heading">
+                  <label for="provider">Modelos disponíveis</label>
+                  <button class="button btn button-outline btn-outline-light" id="refresh-models" type="button">Atualizar lista</button>
+                </div>
+                <p id="catalog-status" role="status" aria-live="polite">Selecione um provedor para consultar o catálogo.</p>
+                <ul class="catalog-list" id="model-catalog"></ul>
+              </div>
+            </div>
+          </section>
+          <section class="settings-section">
+            <h2>Voz do navegador</h2>
+            <div class="settings-grid row g-3">
+              <div class="field col-12 col-md-6">
+                <label class="form-label" for="voice-language">Idioma da voz</label>
+                <select class="form-select" id="voice-language" name="voiceLanguage">
+                  <option value="pt-BR">Português (Brasil)</option>
+                  <option value="en-US">English (US)</option>
+                  <option value="es-ES">Español (España)</option>
+                </select>
+              </div>
+              <div class="field col-12 col-md-6">
+                <label class="form-label" for="voice-id">Voz neste navegador</label>
+                <select class="form-select" id="voice-id" name="voiceId"><option value="">Automática</option></select>
+                <small class="field-note">As vozes variam conforme o navegador e o sistema operacional.</small>
+              </div>
+              <div class="field col-12 col-md-6">
+                <label class="form-label" for="voice-rate">Velocidade</label>
+                <div class="range-control"><input class="form-range" id="voice-rate" name="voiceRate" type="range" min="0.5" max="2" step="0.1" /><output id="voice-rate-value" for="voice-rate">1.0x</output></div>
+              </div>
+              <div class="field col-12 col-md-6">
+                <label class="form-label" for="voice-pitch">Tom</label>
+                <div class="range-control"><input class="form-range" id="voice-pitch" name="voicePitch" type="range" min="0.5" max="2" step="0.1" /><output id="voice-pitch-value" for="voice-pitch">1.0</output></div>
+              </div>
+              <div class="field col-12 col-md-6">
+                <label class="form-label" for="voice-volume">Volume</label>
+                <div class="range-control"><input class="form-range" id="voice-volume" name="voiceVolume" type="range" min="0" max="1" step="0.1" /><output id="voice-volume-value" for="voice-volume">0.9</output></div>
+              </div>
+              <div class="field field-full col-12">
+                <label class="form-label" for="public-server-url">URL pública do servidor</label>
+                <input class="form-control" id="public-server-url" name="publicServerUrl" type="url" maxlength="300" placeholder="https://exemplo.com" />
+                <small>Opcional. Usada na configuração de conexões externas.</small>
+              </div>
+            </div>
+          </section>
+          <div class="form-actions">
+            <button class="button btn button-primary btn-primary" type="submit">Salvar alterações</button>
+            <button class="button btn button-secondary btn-secondary" id="reset-settings" type="button">Restaurar padrão</button>
+            <button class="button btn button-outline btn-outline-light" id="preview-voice" type="button">Ouvir prévia da voz</button>
+          </div>
+          <p id="settings-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

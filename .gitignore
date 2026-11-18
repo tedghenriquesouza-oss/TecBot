@@ -1,0 +1,11 @@
+
+.env
+.provider-config.json
+.provider-config.json.tmp
+node_modules/
+models/voices/*.onnx
+models/voices/*.onnx.json
+.venv-piper/
+tecbot.sqlite3*
+__pycache__/
+*.py[cod]

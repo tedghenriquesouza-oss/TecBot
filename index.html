@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#212121" />
+  <title>TecBot | Chat</title>
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+<body data-page="chat">
+  <div class="app-shell">
+    <aside class="app-sidebar">
+      <a class="brand" href="/" aria-label="TecBot, início">
+        <span class="brand-mark" aria-hidden="true">T</span>
+        <span class="brand-name">TecBot</span>
+      </a>
+      <a class="sidebar-new-chat" href="/" aria-current="page">
+        <span aria-hidden="true">+</span> Nova conversa
+      </a>
+      <div class="sidebar-section-title">Recentes</div>
+      <div class="conversation-list" id="conversation-list" role="list"></div>
+      <div class="sidebar-footer">
+        <span>Histórico compartilhado neste servidor</span>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <span class="brand-name">TecBot</span>
+        </div>
+        <nav class="navigation" aria-label="Navegação principal">
+          <a class="nav-link active" href="/" aria-current="page">Chat</a>
+          <a class="nav-link" href="/dashboard.html">Dashboard</a>
+          <a class="nav-link" href="/esp-logs.html">Registros do ESP32</a>
+          <a class="nav-link" href="/settings.html">Configurações</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema claro">
+          <span class="theme-icon" aria-hidden="true">◐</span>
+          <span class="theme-label">Tema claro</span>
+        </button>
+      </header>
+
+      <section class="chat-page" aria-label="Conversa">
+        <div class="chat-heading">
+          <h1 id="active-chat-title">Como posso ajudar?</h1>
+          <div class="status" id="status" role="status" aria-live="polite" data-state="pending">Conectando...</div>
+        </div>
+        <div class="conversation-log" id="conversation-log" aria-live="polite" aria-label="Histórico da conversa"></div>
+        <form class="chat-composer" id="chat-form">
+          <label class="visually-hidden" for="message-input">Mensagem para o TecBot</label>
+          <textarea id="message-input" name="message" rows="1" maxlength="4000" placeholder="Pergunte qualquer coisa" autocomplete="off" required></textarea>
+          <button class="send-button" type="submit" aria-label="Enviar mensagem">
+            <span aria-hidden="true">↑</span>
+          </button>
+        </form>
+        <p class="chat-disclaimer">As conversas recentes deste servidor podem ser usadas como contexto pela IA. Isso não retreina o modelo. Evite enviar dados pessoais ou segredos.</p>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/src/shared.js"></script>
+  <script type="module" src="/src/chat.js"></script>
+</body>
+</html>

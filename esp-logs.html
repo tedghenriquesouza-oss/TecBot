@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#212121" />
+  <title>TecBot | Registros do ESP32</title>
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+<body>
+  <div class="app-shell app-shell-page">
+    <aside class="app-sidebar">
+      <a class="brand" href="/" aria-label="TecBot, início">
+        <span class="brand-mark" aria-hidden="true">T</span>
+        <span class="brand-name">TecBot</span>
+      </a>
+      <a class="sidebar-new-chat" href="/"> <span aria-hidden="true">+</span> Voltar ao chat</a>
+      <div class="sidebar-info">
+        <span class="sidebar-section-title">TecBot</span>
+        <p>Histórico de perguntas e atividades do ESP32.</p>
+      </div>
+      <div class="sidebar-footer"><span>Registros armazenados neste servidor</span></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <span class="brand-name">TecBot</span>
+        </div>
+        <nav class="navigation" aria-label="Navegação principal">
+          <a class="nav-link" href="/">Chat</a>
+          <a class="nav-link" href="/dashboard.html">Dashboard</a>
+          <a class="nav-link active" href="/esp-logs.html" aria-current="page">Registros do ESP32</a>
+          <a class="nav-link" href="/settings.html">Configurações</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema claro">
+          <span class="theme-icon" aria-hidden="true">◐</span>
+          <span class="theme-label">Tema claro</span>
+        </button>
+      </header>
+      <section class="page-content" aria-labelledby="esp-logs-title">
+        <div class="section-heading">
+          <p class="eyebrow">HISTÓRICO DO DISPOSITIVO</p>
+          <h1 id="esp-logs-title">Registros de tarefas do ESP32</h1>
+          <p>Transcrições do que foi dito, respostas do agente e atividades importantes do dispositivo, como conexões, detecções do sensor e comandos do dashboard.</p>
+        </div>
+        <div class="logs-toolbar">
+          <p id="esp-logs-status" role="status" aria-live="polite">Carregando registros...</p>
+          <button class="button btn button-outline btn-outline-light" id="refresh-esp-logs" type="button">Atualizar registros</button>
+        </div>
+        <div class="esp-log-list" id="esp-log-list" aria-live="polite"></div>
+        <div class="logs-load-more">
+          <button class="button btn button-outline btn-outline-light" id="load-older-logs" type="button" hidden>Carregar registros anteriores</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/src/shared.js"></script>
+  <script type="module" src="/src/esp-logs.js"></script>
+</body>
+</html>
